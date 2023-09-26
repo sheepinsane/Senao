@@ -64,6 +64,30 @@ namespace DBConn
             return dataTable;
         }
 
+        public int ExecuteInsert(string insertQuery)
+        {
+            int rowsAffected = 0;
+
+            try
+            {
+                OpenConnection();
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+                    rowsAffected = command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return rowsAffected;
+        }
+
         public IEnumerable<T> ExecuteQuery<T>(string query, object parameters = null)
         {
             using (IDbConnection dbConnection = new SqlConnection(connectionString))

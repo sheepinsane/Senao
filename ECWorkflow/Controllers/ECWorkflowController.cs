@@ -23,11 +23,31 @@ namespace ECWorkflow.Controllers
         public ActionResult Edit(Models.ECWorkflow Model) 
         {
             if (Model.chModelNo == null)
+            {
+                TempData["message"] = null;
                 return View();
+            }
             else
             {
                 return View(SetViewModel(Model));
             }
+        }
+        public ActionResult Save()
+        {
+            DBConnection sqlConnection = new DBConnection();
+            string query = "SELECT TOP (1000) * FROM [ECWorkflow].[dbo].[ECWorkflow]";
+            var  item =  GetViewModel();
+            foreach (Models.ECWorkflow row in item.List) 
+            {
+                sqlConnection.ExecuteInsert($@"INSERT INTO [dbo].[ECWorkflow]
+                                            ([chModelName],[chTPName],[chModelNo],[chTPNo])
+                                            VALUES('{row.chModelName}','{row.chTPName}','{row.chModelNo}','A12345678')");
+            }
+
+            
+            var result = sqlConnection.ExecuteQuery<Models.ECWorkflow>(query);
+
+            return View("List", result);
         }
         [HttpGet]
         public ActionResult Delete(string chTPNo)
@@ -45,9 +65,17 @@ namespace ECWorkflow.Controllers
             var tempList = TempData["message"] as Models.vECWorkflow;
             if (tempList == null)
                 tempList = new Models.vECWorkflow();
-            Model.chTPNo = DateTime.Now.pTimestampString();
             tempList.List.Add(Model);
             TempData["message"] = tempList;
+
+            return tempList;
+        }
+
+        public Models.vECWorkflow GetViewModel()
+        {
+            var tempList = TempData["message"] as Models.vECWorkflow;
+            if (tempList == null)
+                tempList = new Models.vECWorkflow();
             return tempList;
         }
 
@@ -59,7 +87,6 @@ namespace ECWorkflow.Controllers
             var item = tempList.List.Where(x => x.chTPNo == chTPNo).FirstOrDefault();
             tempList.List.Remove((Models.ECWorkflow)item);
             TempData["message"] = tempList;
-            tempList.chTPNo = string.Empty;
             return tempList;
         }
         public ActionResult Search(string queryText)
