@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Senao_EEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentSN" />
+    </Key>
+    <Property Name="DepartmentSN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmployeeSN" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+    <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeSN" />
+    </Key>
+    <Property Name="EmployeeSN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentSN" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+    <NavigationProperty Name="WorkOvertime" Relationship="Self.FK_WorkOvertime_Employee" FromRole="Employee" ToRole="WorkOvertime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="WorkOvertime">
+    <Key>
+      <PropertyRef Name="WorkOvertimeSN" />
+    </Key>
+    <Property Name="WorkOvertimeSN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeSN" Type="Int32" Nullable="false" />
+    <Property Name="TimeFrom" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeTo" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_WorkOvertime_Employee" FromRole="WorkOvertime" ToRole="Employee" />
+    <Property Name="InsertTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentSN" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkOvertime_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="WorkOvertime" Type="Self.WorkOvertime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeSN" />
+      </Principal>
+      <Dependent Role="WorkOvertime">
+        <PropertyRef Name="EmployeeSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Senao_EEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Department" EntityType="Self.Department" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="WorkOvertime" EntityType="Self.WorkOvertime" />
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkOvertime_Employee" Association="Self.FK_WorkOvertime_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="WorkOvertime" EntitySet="WorkOvertime" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Senao_EEModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Senao_EEModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="v_WorkOvertime" EntityType="Senao_EEModel.v_WorkOvertime" />
+    <EntitySet Name="ProduceChangeLog" EntityType="Senao_EEModel.ProduceChangeLog" />
+    <EntitySet Name="v_ProduceChangeLog" EntityType="Senao_EEModel.v_ProduceChangeLog" />
+    <FunctionImport Name="GetDiff" IsComposable="true" ReturnType="Collection(Senao_EEModel.GetDiff_Result)">
+      <Parameter Name="NO" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_MonthlyReport" ReturnType="Collection(Senao_EEModel.sp_MonthlyReport_Result)">
+      <Parameter Name="TimeFrom" Mode="In" Type="String" />
+      <Parameter Name="TimeTo" Mode="In" Type="String" />
+      <Parameter Name="DepartmentSN" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="v_WorkOvertime">
+    <Key>
+      <PropertyRef Name="Reason" />
+      <PropertyRef Name="WorkOvertimeSN" />
+      <PropertyRef Name="OrgFrom" />
+    </Key>
+    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Reason" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Hours" Type="Double" />
+    <Property Name="DateFrom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TimeFrom" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="DateTo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TimeTo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateTime" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentSN" Type="Int32" />
+    <Property Name="WorkOvertimeSN" Type="Int32" Nullable="false" />
+    <Property Name="OrgFrom" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="InsertTime" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ProduceChangeLog">
+    <Key>
+      <PropertyRef Name="ProduceChangeLogSN" />
+    </Key>
+    <Property Name="ProduceChangeLogSN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartNumbar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Version" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TE_EmployeeSN" Type="Int32" />
+    <Property Name="IE_EmployeeSN" Type="Int32" />
+    <Property Name="PE_EmployeeSN" Type="Int32" />
+    <Property Name="TE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="IE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="PE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TE_FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="IE_FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="PE_FinishDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="v_ProduceChangeLog">
+    <Key>
+      <PropertyRef Name="ProduceChangeLogSN" />
+      <PropertyRef Name="PartNumbar" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ReleaseDate" />
+      <PropertyRef Name="Version" />
+    </Key>
+    <Property Name="ProduceChangeLogSN" Type="Int32" Nullable="false" />
+    <Property Name="PartNumbar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Version" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TE_EmployeeSN" Type="Int32" />
+    <Property Name="IE_EmployeeSN" Type="Int32" />
+    <Property Name="PE_EmployeeSN" Type="Int32" />
+    <Property Name="TE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="IE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="PE_Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TE_FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="IE_FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="PE_FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="TE_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IE_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PE_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="GetDiff_Result">
+    <Property Type="String" Name="PartNB" Nullable="true" MaxLength="15" />
+    <Property Type="Double" Name="MaterialsCosts" Nullable="true" />
+    <Property Type="Double" Name="LaborCost" Nullable="true" />
+    <Property Type="Double" Name="ProductionCost" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_MonthlyReport_Result">
+    <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="SumHours" Nullable="true" />
+  </ComplexType>
+</Schema>

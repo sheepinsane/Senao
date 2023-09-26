@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ECWorkflow.Models.ECWorkflow>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    .vertical-margin .row {
+        margin-bottom: 20px; /* 自定義的垂直間距 */
+    }
+
+    .table-margin-top {
+        margin-top: 20px; /* 自訂的上方間距大小 */
+    }
+</style>
+
+<div class="table-margin-top">
+
+</div>
+<div class="form-group">
+    
+    <form action="/ECWorkflow/Search">
+        <div class="col-md-10">
+            <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">查詢</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div>
+
+        </div>
+    </div>
+    <div class="table-margin-top">
+        <p>
+            @Html.ActionLink("新增產品料號", "Edit", "ECWorkflow")
+        </p>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.chModelNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chModelName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chModelNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chModelName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chTPNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chTPName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("發行紀錄", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("刪除", "Delete", "ECWorkflow", new { chTPNo = item.chTPNo })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

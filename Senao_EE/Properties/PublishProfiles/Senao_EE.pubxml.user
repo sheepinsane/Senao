@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案是由您 Web 專案的發行/封裝處理程序所使用。您可以編輯此 MSBuild 檔案，
+以自訂此處理程序的行為。若要深入了解，請造訪 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\Publish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>01/03/2017 20:28:55</publishTime>
+    </File>
+    <File Include="bin/Senao_EE.dll">
+      <publishTime>05/27/2019 10:22:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>01/03/2017 20:28:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/EntityFramework.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/EntityFramework.SqlServer.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.AspNet.Identity.Core.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.AspNet.Identity.EntityFramework.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.AspNet.Identity.Owin.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Host.SystemWeb.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Security.Facebook.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Security.Google.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Security.MicrosoftAccount.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Security.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Owin.Security.Twitter.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.Helpers.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.Mvc.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.Optimization.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.Razor.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.WebPages.resources.dll">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Content/external/jquery/jquery.js">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_444444_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_555555_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_777620_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_777777_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_cc0000_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/images/ui-icons_ffffff_256x240.png">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.min.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.structure.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.structure.min.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.theme.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.theme.min.css">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.js">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>01/07/2017 11:03:55</publishTime>
+    </File>
+    <File Include="Senao_EE.edmx.diagram">
+      <publishTime>01/19/2017 11:17:22</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/Manage.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/_ChangePasswordPartial.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/_RemoveAccountPartial.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Account/_SetPasswordPartial.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/ProduceChangeLog/List.cshtml">
+      <publishTime>01/19/2017 11:45:30</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>01/11/2017 17:56:44</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Views/WorkOvertime/Edit.cshtml">
+      <publishTime>12/10/2018 14:37:26</publishTime>
+    </File>
+    <File Include="Views/WorkOvertime/List.cshtml">
+      <publishTime>05/27/2019 10:16:44</publishTime>
+    </File>
+    <File Include="Views/WorkOvertime/MonthlyReport.cshtml">
+      <publishTime>12/10/2018 13:36:42</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>01/03/2017 20:28:54</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/05/2018 18:11:10</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

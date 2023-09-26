@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Senao_EE.v_ProduceChangeLog>
+
+@{
+    ViewBag.Title = "生產規格書變更紀錄";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <table class="table">
+        <tr>
+            <th>
+                料號
+            </th>
+            <th>
+                機種
+            </th>
+            <th>
+                發行日期
+            </th>
+            <th>
+                發行版本
+            </th>
+            <th>
+                修正內容
+            </th>
+            <th>
+                各課主管填入機種負責人
+            </th>
+            <th>
+                作業內容
+            </th>
+            <th>
+                完成時間
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td nowrap="nowrap">
+                    @Html.DisplayFor(modelItem => item.PartNumbar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.DisplayFor(modelItem => item.ReleaseDate, "{0:yyyy/MM/dd}")
+                </td>
+                <td align="right">
+                    @Html.DisplayFor(modelItem => item.Version)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.ActionLink("修改", "Edit", new { WorkOvertimeSN = item.ProduceChangeLogSN }) |
+                    @Html.ActionLink("刪除", "Delete", new { WorkOvertimeSN = item.ProduceChangeLogSN },
+                  new { onclick = "return confirm('是否確認刪除紀錄【" + item.Name + " " + item.PartNumbar + " 】?');" })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

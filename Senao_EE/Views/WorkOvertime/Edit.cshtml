@@ -1,0 +1,94 @@
+﻿@model Senao_EE.Models.WorkOvertimeViewModel
+
+@{
+    ViewBag.Title = "加班紀錄";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>編輯</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({ dateFormat: 'yy/mm/dd', changeYear: true, changeMonth: true });
+        });
+    </script>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @using (Html.BeginForm("Edit", "WorkOvertime", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.HiddenFor(model => model.WorkOvertimeSN)
+        @Html.AntiForgeryToken()
+        <h4>【@ViewBag.Action】加班紀錄</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmployeeID, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EmployeeID, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.EmployeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">加班開始</label>
+            <div class="col-md-10">
+                <table>
+                    <tr>
+                        <td valign="top">
+                            @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control datepicker", placeHolder = "範例：2017/01/01" })
+                            @Html.ValidationMessageFor(model => model.DateFrom)
+
+                        </td>
+                        <td valign="top">
+                            @Html.TextBoxFor(model => model.TimeFrom, new { @class = "form-control", placeHolder = "範例：1800" })
+                            @Html.ValidationMessageFor(model => model.TimeFrom)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">加班結束</label>
+            <div class="col-md-10">
+                <table>
+                    <tr>
+                        <td valign="top">
+                            @Html.TextBoxFor(model => model.DateTo, new { @class = "form-control datepicker", placeHolder = "範例：2017/01/01" })
+                            @Html.ValidationMessageFor(model => model.DateTo)
+                        </td>
+                        <td valign="top">
+                            @Html.TextBoxFor(model => model.TimeTo, new { @class = "form-control", placeHolder = "範例：1930" })
+                            @Html.ValidationMessageFor(model => model.TimeTo)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Reason, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Reason, new { @class = "form-control", @rows = 5 })
+                @Html.ValidationMessageFor(model => model.Reason)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+                @Html.ActionLink("取消", "List", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    }
+</body>
+</html>

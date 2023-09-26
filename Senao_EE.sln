@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senao_EE", "Senao_EE\Senao_EE.csproj", "{1C339E8D-3932-4E34-A42E-F828EB518751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECWorkflow", "ECWorkflow\ECWorkflow.csproj", "{2C2A9685-F159-4035-B2CA-2C7367577384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBConn", "DBConn\DBConn.csproj", "{11A7D528-C0E3-4FC4-91C8-77658C4B9BEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C339E8D-3932-4E34-A42E-F828EB518751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C339E8D-3932-4E34-A42E-F828EB518751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C339E8D-3932-4E34-A42E-F828EB518751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C339E8D-3932-4E34-A42E-F828EB518751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C2A9685-F159-4035-B2CA-2C7367577384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C2A9685-F159-4035-B2CA-2C7367577384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C2A9685-F159-4035-B2CA-2C7367577384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C2A9685-F159-4035-B2CA-2C7367577384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A7D528-C0E3-4FC4-91C8-77658C4B9BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A7D528-C0E3-4FC4-91C8-77658C4B9BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A7D528-C0E3-4FC4-91C8-77658C4B9BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A7D528-C0E3-4FC4-91C8-77658C4B9BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B764E84A-CE44-4D53-9A07-0AFFAD5FB269}
+	EndGlobalSection
+EndGlobal

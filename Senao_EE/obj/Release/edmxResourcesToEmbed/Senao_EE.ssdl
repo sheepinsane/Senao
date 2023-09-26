@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Senao_EEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentSN" />
+    </Key>
+    <Property Name="DepartmentSN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeSN" Type="int" />
+    <Property Name="Note" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeSN" />
+    </Key>
+    <Property Name="EmployeeSN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentSN" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProduceChangeLog">
+    <Key>
+      <PropertyRef Name="ProduceChangeLogSN" />
+    </Key>
+    <Property Name="ProduceChangeLogSN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartNumbar" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReleaseDate" Type="date" Nullable="false" />
+    <Property Name="Version" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="TE_EmployeeSN" Type="int" />
+    <Property Name="IE_EmployeeSN" Type="int" />
+    <Property Name="PE_EmployeeSN" Type="int" />
+    <Property Name="TE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="IE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="PE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="TE_FinishDate" Type="date" />
+    <Property Name="IE_FinishDate" Type="date" />
+    <Property Name="PE_FinishDate" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="WorkOvertime">
+    <Key>
+      <PropertyRef Name="WorkOvertimeSN" />
+    </Key>
+    <Property Name="WorkOvertimeSN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeSN" Type="int" Nullable="false" />
+    <Property Name="TimeFrom" Type="datetime" Nullable="false" />
+    <Property Name="TimeTo" Type="datetime" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+    <Property Name="InsertTime" Type="datetime" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Senao_EE.dbo.v_ProduceChangeLog' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="v_ProduceChangeLog">
+    <Key>
+      <PropertyRef Name="ProduceChangeLogSN" />
+      <PropertyRef Name="PartNumbar" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ReleaseDate" />
+      <PropertyRef Name="Version" />
+    </Key>
+    <Property Name="ProduceChangeLogSN" Type="int" Nullable="false" />
+    <Property Name="PartNumbar" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReleaseDate" Type="date" Nullable="false" />
+    <Property Name="Version" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="TE_EmployeeSN" Type="int" />
+    <Property Name="IE_EmployeeSN" Type="int" />
+    <Property Name="PE_EmployeeSN" Type="int" />
+    <Property Name="TE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="IE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="PE_Note" Type="nvarchar" MaxLength="300" />
+    <Property Name="TE_FinishDate" Type="date" />
+    <Property Name="IE_FinishDate" Type="date" />
+    <Property Name="PE_FinishDate" Type="date" />
+    <Property Name="TE_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="IE_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="PE_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Senao_EE.dbo.v_WorkOvertime' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="v_WorkOvertime">
+    <Key>
+      <PropertyRef Name="Reason" />
+      <PropertyRef Name="WorkOvertimeSN" />
+      <PropertyRef Name="OrgFrom" />
+    </Key>
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Hours" Type="float" />
+    <Property Name="DateFrom" Type="varchar" MaxLength="30" />
+    <Property Name="TimeFrom" Type="varchar" MaxLength="5" />
+    <Property Name="DateTo" Type="varchar" MaxLength="30" />
+    <Property Name="TimeTo" Type="varchar" MaxLength="5" />
+    <Property Name="UpdateTime" Type="varchar" MaxLength="36" />
+    <Property Name="DepartmentSN" Type="int" />
+    <Property Name="WorkOvertimeSN" Type="int" Nullable="false" />
+    <Property Name="OrgFrom" Type="datetime" Nullable="false" />
+    <Property Name="InsertTime" Type="varchar" MaxLength="36" />
+  </EntityType>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentSN" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkOvertime_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="WorkOvertime" Type="Self.WorkOvertime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeSN" />
+      </Principal>
+      <Dependent Role="WorkOvertime">
+        <PropertyRef Name="EmployeeSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="fn_Hours" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+    <Parameter Name="WoFrom" Type="datetime" Mode="In" />
+    <Parameter Name="WoTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="GetDiff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NO" Type="varchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="PartNB" Type="varchar" MaxLength="15" />
+          <Property Name="MaterialsCosts" Type="float" />
+          <Property Name="LaborCost" Type="float" />
+          <Property Name="ProductionCost" Type="float" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_MonthlyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TimeFrom" Type="nvarchar" Mode="In" />
+    <Parameter Name="TimeTo" Type="nvarchar" Mode="In" />
+    <Parameter Name="DepartmentSN" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Senao_EEModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProduceChangeLog" EntityType="Self.ProduceChangeLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkOvertime" EntityType="Self.WorkOvertime" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="v_ProduceChangeLog" EntityType="Self.v_ProduceChangeLog" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_ProduceChangeLog].[ProduceChangeLogSN] AS [ProduceChangeLogSN], 
+    [v_ProduceChangeLog].[PartNumbar] AS [PartNumbar], 
+    [v_ProduceChangeLog].[Name] AS [Name], 
+    [v_ProduceChangeLog].[ReleaseDate] AS [ReleaseDate], 
+    [v_ProduceChangeLog].[Version] AS [Version], 
+    [v_ProduceChangeLog].[Note] AS [Note], 
+    [v_ProduceChangeLog].[TE_EmployeeSN] AS [TE_EmployeeSN], 
+    [v_ProduceChangeLog].[IE_EmployeeSN] AS [IE_EmployeeSN], 
+    [v_ProduceChangeLog].[PE_EmployeeSN] AS [PE_EmployeeSN], 
+    [v_ProduceChangeLog].[TE_Note] AS [TE_Note], 
+    [v_ProduceChangeLog].[IE_Note] AS [IE_Note], 
+    [v_ProduceChangeLog].[PE_Note] AS [PE_Note], 
+    [v_ProduceChangeLog].[TE_FinishDate] AS [TE_FinishDate], 
+    [v_ProduceChangeLog].[IE_FinishDate] AS [IE_FinishDate], 
+    [v_ProduceChangeLog].[PE_FinishDate] AS [PE_FinishDate], 
+    [v_ProduceChangeLog].[TE_Name] AS [TE_Name], 
+    [v_ProduceChangeLog].[IE_Name] AS [IE_Name], 
+    [v_ProduceChangeLog].[PE_Name] AS [PE_Name]
+    FROM [dbo].[v_ProduceChangeLog] AS [v_ProduceChangeLog]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="v_WorkOvertime" EntityType="Self.v_WorkOvertime" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_WorkOvertime].[DepartmentName] AS [DepartmentName], 
+    [v_WorkOvertime].[EmployeeName] AS [EmployeeName], 
+    [v_WorkOvertime].[EmployeeID] AS [EmployeeID], 
+    [v_WorkOvertime].[Reason] AS [Reason], 
+    [v_WorkOvertime].[Hours] AS [Hours], 
+    [v_WorkOvertime].[DateFrom] AS [DateFrom], 
+    [v_WorkOvertime].[TimeFrom] AS [TimeFrom], 
+    [v_WorkOvertime].[DateTo] AS [DateTo], 
+    [v_WorkOvertime].[TimeTo] AS [TimeTo], 
+    [v_WorkOvertime].[UpdateTime] AS [UpdateTime], 
+    [v_WorkOvertime].[DepartmentSN] AS [DepartmentSN], 
+    [v_WorkOvertime].[WorkOvertimeSN] AS [WorkOvertimeSN], 
+    [v_WorkOvertime].[OrgFrom] AS [OrgFrom], 
+    [v_WorkOvertime].[InsertTime] AS [InsertTime]
+    FROM [dbo].[v_WorkOvertime] AS [v_WorkOvertime]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkOvertime_Employee" Association="Self.FK_WorkOvertime_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="WorkOvertime" EntitySet="WorkOvertime" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

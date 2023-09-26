@@ -1,0 +1,94 @@
+﻿@model Senao_EE.Models.MonthlyReportViewModel
+
+@{
+    ViewBag.Title = "加班紀錄";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>月報</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @using (Html.BeginForm("MonthlyReport", "WorkOvertime", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>【月報】加班紀錄</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DateBetween, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateBetween, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DepartmentSN, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentSN, Model.Department, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="查詢" class="btn btn-default" />
+                @Html.ActionLink("取消", "List", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                部門
+            </th>
+            <th>
+                工號
+            </th>
+            <th>
+                姓名
+            </th>
+            <th nowrap="nowrap">
+                加班時數
+            </th>
+        </tr>
+
+        @foreach (var item in Model.MonthlyReport)
+        {
+            <tr>
+                <td nowrap="nowrap">
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.DisplayFor(modelItem => item.EmployeeID)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td nowrap="nowrap">
+                    @if (item.SumHours >= 60)
+                    {
+                        <font color="red">@Html.DisplayFor(modelItem => item.SumHours)</font>
+                    }
+                    else if (item.SumHours >= 40)
+                    {
+                        <font color="blue">@Html.DisplayFor(modelItem => item.SumHours)</font>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.SumHours)
+                    } 小時
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
