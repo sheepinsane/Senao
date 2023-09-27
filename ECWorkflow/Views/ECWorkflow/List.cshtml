@@ -13,11 +13,53 @@
     }
 </style>
 
+
+<script>
+    function ConfirmDetail(chModelNo, chModelName,chTPNo,chTPName) {
+
+        sendAjaxRequest(
+            "/ECWorkflowList/GetList",
+            "POST",
+            "json",
+            function (data) {
+                // 自定義的成功處理邏輯
+                var obj = JSON.parse(data);
+                console.log(obj);
+                $("#bsT").bootstrapTable('load', obj);
+            },
+            function (error) {
+                // 自定義的錯誤處理邏輯
+                console.error("Error:", error);
+            }
+        );
+    }
+
+    function sendAjaxRequest(url, method, dataType, successCallback, errorCallback) {
+        $.ajax({
+            url: url,
+            method: method,
+            dataType: dataType,
+            success: function (data) {
+                if (typeof successCallback === 'function') {
+                    successCallback(data); // 呼叫自定義的成功處理函數
+                }
+            },
+            error: function (xhr, status, error) {
+                if (typeof errorCallback === 'function') {
+                    errorCallback(error); // 呼叫自定義的錯誤處理函數
+                }
+            }
+        });
+    }
+
+
+</script>
+
 <div class="table-margin-top">
 
 </div>
 <div class="form-group">
-    
+
     <form action="/ECWorkflow/Search">
         <div class="col-md-10">
             <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
@@ -73,8 +115,8 @@
                         @Html.DisplayFor(modelItem => item.chTPName)
                     </td>
                     <td>
-                        @Html.ActionLink("發行紀錄", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("刪除", "Delete", "ECWorkflow", new { chTPNo = item.chTPNo })
+                        <button type="button" data-toggle="modal" onclick="ConfirmDetail('@item.chModelNo','@item.chModelName','@item.chTPNo','@item.chTPName')" data-target="#detailDialog" class="btn btn-primary">發行紀錄</button>
+                        <a href="@Url.Action("Delete", "ECWorkflow", new { chTPNo = item.chTPNo })" class="btn btn-danger" role="button">刪除</a>
                     </td>
                 </tr>
             }
@@ -82,4 +124,28 @@
         </table>
     </div>
 </div>
+
+<div id="detailDialog" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Dialog位置 -->
+            <h1>程式發行紀錄</h1>
+            <table id="bsT" data-toggle="table">
+                <thead>
+                    <tr>
+                        <th data-field="chModelNo">料號</th>
+                        <th data-field="chModelName">機種名稱</th>
+                        <th data-field="chTPNo">流水號</th>
+                        <th data-field="chTPName">產測程式</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <br/>
+            
+        </div>
+    </div>
+</div>
+
 
