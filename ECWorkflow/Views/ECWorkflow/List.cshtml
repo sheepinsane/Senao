@@ -16,11 +16,14 @@
 
 <script>
     function ConfirmDetail(chModelNo, chModelName,chTPNo,chTPName) {
-
+        var jsonData = {
+            chTPNo: chTPNo
+        };
         sendAjaxRequest(
             "/ECWorkflowList/GetList",
             "POST",
             "json",
+            jsonData,
             function (data) {
                 // 自定義的成功處理邏輯
                 var obj = JSON.parse(data);
@@ -34,11 +37,12 @@
         );
     }
 
-    function sendAjaxRequest(url, method, dataType, successCallback, errorCallback) {
+    function sendAjaxRequest(url, method, dataType, jsonData, successCallback, errorCallback) {
         $.ajax({
             url: url,
             method: method,
             dataType: dataType,
+            data: jsonData,
             success: function (data) {
                 if (typeof successCallback === 'function') {
                     successCallback(data); // 呼叫自定義的成功處理函數
@@ -125,7 +129,7 @@
     </div>
 </div>
 
-<div id="detailDialog" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="detailDialog" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Dialog位置 -->
@@ -133,10 +137,11 @@
             <table id="bsT" data-toggle="table">
                 <thead>
                     <tr>
-                        <th data-field="chModelNo">料號</th>
-                        <th data-field="chModelName">機種名稱</th>
-                        <th data-field="chTPNo">流水號</th>
+                        <th data-field="chApplyDate">料號</th>
+                        <th data-field="chTPAll">程式版本號</th>
                         <th data-field="chTPName">產測程式</th>
+                        <th data-field="chCreater">申請者</th>
+                        <th data-field="chECFinishDate">EC完成日期</th>
                     </tr>
                 </thead>
                 <tbody>
