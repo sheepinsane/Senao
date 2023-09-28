@@ -13,4 +13,14 @@ namespace ECWorkflow.ExtUni
             return unixTimestampMilliseconds.ToString();
         }
     }
+
+    public static class StringExt 
+    {
+        public static int pToInt(this string source)
+        {
+            int i = 0;
+            int.TryParse(source, out i);
+            return i;
+        }
+    }
 }

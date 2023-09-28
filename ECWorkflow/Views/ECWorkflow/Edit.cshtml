@@ -1,7 +1,7 @@
 ﻿@model ECWorkflow.Models.vECWorkflow
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "料號申請";
 }
 @using (Html.BeginForm("Edit", "ECWorkflow", FormMethod.Post))
 {
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button class="btn btn-default" type="submit">新增</button>
+                <button class="btn btn-primary" type="submit">新增</button>
             </div>
         </div>
     </div>
@@ -100,8 +100,8 @@
         </table>
     </div>
     <div class="row text-center" >
-        <button onclick="window.location.href='@Url.Action("Save", "ECWorkflow")'" class="btn btn-primary">儲存</button>
-        <button onclick="window.location.href='@Url.Action("List", "ECWorkflow")'" class="btn btn-primary">返回</button>
+        <button onclick="window.location.href='@Url.Action("Save", "ECWorkflow")'" class="btn btn-success">儲存</button>
+        <button onclick="window.location.href='@Url.Action("List", "ECWorkflow")'" class="btn btn-warning">返回</button>
     </div>
 
 </div>

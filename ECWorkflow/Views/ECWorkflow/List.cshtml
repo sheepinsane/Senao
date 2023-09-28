@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ECWorkflow.Models.ECWorkflow>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "料號列表";
 }
 <style>
     .vertical-margin .row {
@@ -113,13 +113,13 @@
                         @Html.DisplayFor(modelItem => item.chModelName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.chTPNo)
+                        @Html.ActionLink(item.chTPNo, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.chTPName)
                     </td>
                     <td>
-                        <button type="button" data-toggle="modal" onclick="ConfirmDetail('@item.chModelNo','@item.chModelName','@item.chTPNo','@item.chTPName')" data-target="#detailDialog" class="btn btn-primary">發行紀錄</button>
+                        <button type="button" data-toggle="modal" onclick="ConfirmDetail('@item.chModelNo','@item.chModelName','@item.chTPNo','@item.chTPName')" data-target="#detailDialog" class="btn btn-info">發行紀錄</button>
                         <a href="@Url.Action("Delete", "ECWorkflow", new { chTPNo = item.chTPNo })" class="btn btn-danger" role="button">刪除</a>
                     </td>
                 </tr>
@@ -137,7 +137,6 @@
             <table id="bsT" data-toggle="table">
                 <thead>
                     <tr>
-                        <th data-field="chApplyDate">料號</th>
                         <th data-field="chTPAll">程式版本號</th>
                         <th data-field="chTPName">產測程式</th>
                         <th data-field="chCreater">申請者</th>
