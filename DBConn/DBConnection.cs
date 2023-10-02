@@ -96,5 +96,32 @@ namespace DBConn
                 return dbConnection.Query<T>(query, parameters);
             }
         }
+
+        public void InsertEntity<T>(T entity, string tableName)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // 生成插入SQL语句，假设实体属性与表列名相同
+                string columns = string.Join(", ", typeof(T).GetProperties().Select(p => p.Name));
+                string parameters = string.Join(", ", typeof(T).GetProperties().Select(p => "@" + p.Name));
+                string sql = $"INSERT INTO {tableName} ({columns}) VALUES ({parameters})";
+
+                connection.Execute(sql, entity, commandType: CommandType.Text);
+            }
+        }
+
+        public void DeleteEntity<T>(string columnName, object columnValue, string columnName2, object columnValue2, string tableName)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // 生成列名和参数列表
+                string sql = $"DELETE FROM {tableName} WHERE {columnName} = '{columnName}' And {columnName2} = '{columnName2}'";
+                connection.Execute(sql, commandType: CommandType.Text);
+            }
+        }
     }
 }
