@@ -1,0 +1,200 @@
+﻿@model ECWorkflow.Models.vECWorkflowList
+@{
+    ViewBag.Title = "產測料號列表";
+}
+<style>
+    .vertical-margin .row {
+        margin-bottom: 20px; /* 自定義的垂直間距 */
+    }
+
+    .table-margin-top {
+        margin-top: 20px; /* 自訂的上方間距大小 */
+    }
+
+    .table-fixed-150px {
+        width: 150px; /* 固定列宽度为100像素 */
+        white-space: normal; /* 允许文本换行 */
+        word-wrap: break-word; /* 允许单词换行 */
+    }
+</style>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        var select = @Model.intStatus;
+        if (select == 3)
+            select = 5
+        else if (select != 6)
+            select = select + 1;
+    
+        
+        $("#intStatusB").val(select);
+    })
+
+    function SelectAllOnclick() {
+        var checkboxes = document.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = !checkbox.checked;
+        });
+
+    }
+    function GetSelectList()
+    {
+        var checkedValues = []; // 創建一個空數組來存儲已選取的值
+
+        $('input[type="checkbox"]:checked').each(function () {
+            checkedValues.push($(this).val()); // 將已選取的核取框的值添加到數組中
+        });
+
+        console.log(checkedValues);
+        var jsonData = JSON.stringify(checkedValues);
+
+        $.ajax({
+            url: '/ECWorkflowList/ChangeStatusToData', // 請更換為您的控制器動作的URL
+            type: 'POST',
+            data: JSON.stringify({ Result: jsonData, status: $("#intStatusB").val()}),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response) {
+                alert('修改狀態成功');
+                // 在此處處理控制器返回的成功響應
+                //$('#result').text(JSON.stringify(response));
+
+            },
+            error: function (error) {
+                // 在此處處理錯誤
+                console.error(error);
+            }
+        });
+
+    }
+</script>
+<h2>產測料號-查詢</h2>
+<div class="table-margin-top">
+
+</div>
+<div class="form-group">
+
+    <form action="/ECWorkflowList/StatusChangeList">
+        <div class="row table-margin-top">
+            <div class="col-md-2">
+                <label for="selectElement">申請狀態：</label>
+                <select name="intStatus" class="form-control" aria-label="Default select example">
+                    <option value="1" selected>申請版本料號</option>
+                    <option value="2">版本料號申請完成</option>
+                    <option value="3">發行軟體管制表</option>
+                    <option value="5">申請EC單號</option>
+                    <option value="6">EC已完成</option>
+                </select>
+            </div>
+            <div class="col-md-10">
+                <label for="queryText">查詢：</label>
+                <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
+            </div>
+        </div>
+        <div class="row table-margin-top">
+            <div class="col-md-12">
+                <button id="btnSearch" class="btn btn-primary  btn-block" type="submit">查詢</button>
+            </div>
+        </div>
+    </form>
+    <h2>產測料號-狀態</h2>
+
+    <div class="row table-margin-top">
+        <div class="col-md-5">
+            <div class="input-group input-daterange">
+                <input type="text" name="chStatusA" id="chStatusA" class="form-control" aria-describedby="basic-addon2"
+                       value="@Model.chStatus"
+                       readonly="readonly">
+                <div class="input-group-addon">
+                    =>
+                </div>
+                <select id="intStatusB" name="intStatusB" class="form-control" aria-label="Default select example">
+                    <option value="1" selected>申請版本料號</option>
+                    <option value="2">版本料號申請完成</option>
+                    <option value="3">發行軟體管制表</option>
+                    <option value="5">申請EC單號</option>
+                    <option value="6">EC已完成</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button id="btnSearch" class="btn btn-success  btn-block" type="submit" onclick="GetSelectList()">狀態變更</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div>
+
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    <a href="#" id="selectAllLink" onclick="SelectAllOnclick()">全選</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chApplyDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPAll)
+                </th>
+                <th class="table-fixed-150px">
+                    @Html.DisplayNameFor(model => model.chTPName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chCreater)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECCreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECFinishDate)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.List)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        <input type="checkbox" name="myCheckbox" id="@item.chTPAll" value="@item.chTPAll">
+                    </td>
+                    <td>
+                        @item.chApplyDate.ToString("yyyy-MM-dd")
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.chTPAll, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)
+                    </td>
+                    <td class="table-fixed-150px">
+                        @Html.DisplayFor(modelItem => item.chTPName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chCreater)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chECNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chECCreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chECFinishDate)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

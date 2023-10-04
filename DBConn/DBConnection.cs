@@ -112,6 +112,16 @@ namespace DBConn
             }
         }
 
+        public void Update(string SQL)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                connection.Execute(SQL, commandType: CommandType.Text);
+            }
+        }
+
+
         public void DeleteEntity<T>(string columnName, object columnValue, string columnName2, object columnValue2, string tableName)
         {
             using (var connection = new SqlConnection(connectionString))

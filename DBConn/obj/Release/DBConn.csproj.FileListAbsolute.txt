@@ -1,0 +1,9 @@
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\bin\Release\DBConn.dll
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\bin\Release\DBConn.pdb
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\bin\Release\Dapper.dll
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\bin\Release\Dapper.xml
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\obj\Release\DBConn.csproj.AssemblyReference.cache
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\obj\Release\DBConn.csproj.CoreCompileInputs.cache
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\obj\Release\DBConn.csproj.CopyComplete
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\obj\Release\DBConn.dll
+C:\Users\sean\Desktop\神準系統\Senao_EE\DBConn\obj\Release\DBConn.pdb

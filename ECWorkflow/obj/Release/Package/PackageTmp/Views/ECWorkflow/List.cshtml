@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ECWorkflow.Models.ECWorkflow>
+
+@{
+    ViewBag.Title = "料號列表";
+}
+<style>
+    .vertical-margin .row {
+        margin-bottom: 20px; /* 自定義的垂直間距 */
+    }
+
+    .table-margin-top {
+        margin-top: 20px; /* 自訂的上方間距大小 */
+    }
+</style>
+
+
+<script>
+    function ConfirmDetail(chModelNo, chModelName,chTPNo,chTPName) {
+        var jsonData = {
+            chTPNo: chTPNo
+        };
+        sendAjaxRequest(
+            "/ECWorkflowList/GetList",
+            "POST",
+            "json",
+            jsonData,
+            function (data) {
+                // 自定義的成功處理邏輯
+                var obj = JSON.parse(data);
+                console.log(obj);
+                $("#bsT").bootstrapTable('load', obj);
+            },
+            function (error) {
+                // 自定義的錯誤處理邏輯
+                console.error("Error:", error);
+            }
+        );
+    }
+
+    function sendAjaxRequest(url, method, dataType, jsonData, successCallback, errorCallback) {
+        $.ajax({
+            url: url,
+            method: method,
+            dataType: dataType,
+            data: jsonData,
+            success: function (data) {
+                if (typeof successCallback === 'function') {
+                    successCallback(data); // 呼叫自定義的成功處理函數
+                }
+            },
+            error: function (xhr, status, error) {
+                if (typeof errorCallback === 'function') {
+                    errorCallback(error); // 呼叫自定義的錯誤處理函數
+                }
+            }
+        });
+    }
+
+
+</script>
+<h2>機種料號-查詢</h2>
+<div class="table-margin-top">
+
+</div>
+<div class="form-group">
+
+    <form action="/ECWorkflow/Search">
+        <div class="col-md-10">
+            <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">查詢</button>
+        </div>
+    </form>
+</div>
+<h2>機種料號-列表</h2>
+<div class="container">
+    <div class="row">
+        <div>
+
+        </div>
+    </div>
+    <div class="table-margin-top">
+        <p>
+            @Html.ActionLink("新增產品料號", "Edit", "ECWorkflow")
+        </p>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.chModelNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chModelName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chModelNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chModelName)
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.chTPNo, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chTPName)
+                    </td>
+                    <td>
+                        <button type="button" data-toggle="modal" onclick="ConfirmDetail('@item.chModelNo','@item.chModelName','@item.chTPNo','@item.chTPName')" data-target="#detailDialog" class="btn btn-info">發行紀錄</button>
+                        <a href="@Url.Action("Delete", "ECWorkflow", new { chTPNo = item.chTPNo })" class="btn btn-danger" role="button">刪除</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div id="detailDialog" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Dialog位置 -->
+            <h1>程式發行紀錄</h1>
+            <table id="bsT" data-toggle="table">
+                <thead>
+                    <tr>
+                        <th data-field="chTPAll">程式版本號</th>
+                        <th data-field="chTPName">產測程式</th>
+                        <th data-field="chCreater">申請者</th>
+                        <th data-field="chECFinishDate">EC完成日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <br/>
+            
+        </div>
+    </div>
+</div>
+
+

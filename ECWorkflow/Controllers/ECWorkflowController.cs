@@ -15,7 +15,7 @@ namespace ECWorkflow.Controllers
         public ActionResult List()
         {
             DBConnection sqlConnection = new DBConnection();
-            string query = "SELECT TOP (1000) * FROM [ECWorkflow].[dbo].[ECWorkflow]";
+            string query = "SELECT TOP (1000) * FROM ECWorkflow";
             var result = sqlConnection.ExecuteQuery<Models.ECWorkflow>(query);
             return View(result);
         }
@@ -35,11 +35,11 @@ namespace ECWorkflow.Controllers
         public ActionResult Save()
         {
             DBConnection sqlConnection = new DBConnection();
-            string query = "SELECT TOP (1000) * FROM [ECWorkflow].[dbo].[ECWorkflow]";
+            string query = "SELECT TOP (1000) * FROM [ECWorkflow]";
             var  item =  GetViewModel();
             foreach (Models.ECWorkflow row in item.List) 
             {
-                sqlConnection.ExecuteInsert($@"INSERT INTO [dbo].[ECWorkflow]
+                sqlConnection.ExecuteInsert($@"INSERT INTO [ECWorkflow]
                                             ([chModelName],[chTPName],[chModelNo],[chTPNo])
                                             VALUES('{row.chModelName}','{row.chTPName}','{row.chModelNo}','A12345678')");
             }
@@ -92,7 +92,7 @@ namespace ECWorkflow.Controllers
         public ActionResult Search(string queryText)
         {
             DBConnection sqlConnection = new DBConnection();
-            string query = $"SELECT TOP (1000) * FROM [ECWorkflow].[dbo].[ECWorkflow] " +
+            string query = $"SELECT TOP (1000) * FROM [dbo].[ECWorkflow] " +
                 $"Where [chModelNo] like '%{queryText}%'" +
                 $"Or [chModelName] like '%{queryText}%'" +
                 $"Or [chTPNo] like '%{queryText}%'" +

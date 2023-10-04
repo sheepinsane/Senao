@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ECWorkflow.Models.vECWorkflowList>
+@{
+    ViewBag.Title = "產測料號列表";
+}
+<style>
+    .vertical-margin .row {
+        margin-bottom: 20px; /* 自定義的垂直間距 */
+    }
+
+    .table-margin-top {
+        margin-top: 20px; /* 自訂的上方間距大小 */
+    }
+
+    .table-fixed-150px {
+        width: 150px; /* 固定列宽度为100像素 */
+        white-space: normal; /* 允许文本换行 */
+        word-wrap: break-word; /* 允许单词换行 */
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.input-daterange').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    });
+
+</script>
+<h2>產測料號-查詢</h2>
+<div class="table-margin-top">
+
+</div>
+<div class="form-group">
+
+    <form action="/ECWorkflowList/List">
+        <div class="row table-margin-top">
+            <div class="col-md-5">
+                <label for="selectElement">申請狀態：</label>
+                <select name="intStatus" class="form-control" aria-label="Default select example">
+                    <option value="-1" selected>所有</option>
+                    <option value="1">申請版本料號</option>
+                    <option value="2">版本料號申請完成</option>
+                    <option value="3">發行軟體管制表</option>
+                    <option value="5">申請EC單號</option>
+                    <option value="6">EC已完成</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label for="selectElement">申請時間：</label>
+                <div class="input-group input-daterange">
+                    <input type="text" name="chApplyFirst" class="form-control" value="">
+                    <div class="input-group-addon">to</div>
+                    <input type="text" name="chApplyEnd" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                </div>
+            </div>
+        </div>
+        <div class="row table-margin-top">
+            <div class="col-md-12">
+                <label for="queryText">查詢：</label>
+                <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
+            </div>
+        </div>
+        <div class="row table-margin-top">
+            <div class="col-md-12">
+                <button id="btnSearch" class="btn btn-primary  btn-block" type="submit">查詢</button>
+            </div>
+        </div>
+    </form>
+</div>
+<h2>產測料號-列表</h2>
+<div class="container">
+    <div class="row">
+        <div>
+
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.chApplyDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chTPAll)
+                </th>
+                <th class="table-fixed-150px">
+                    @Html.DisplayNameFor(model => model.chTPName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chCreater)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECCreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.chECFinishDate)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+           
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @item.chApplyDate.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @Html.ActionLink(item.chTPAll, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)
+            </td>
+            <td class="table-fixed-150px">
+                @Html.DisplayFor(modelItem => item.chTPName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chCreater)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chECNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chECCreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chECFinishDate)
+            </td>
+            <td>
+                @if (item.intStatus == 1)
+                {
+                    <a href="@Url.Action("Delete", "ECWorkflow", new { chTPNo = item.chTPNo })" class="btn btn-danger" role="button">刪除</a>
+                }
+                else
+                { 
+                    <a class="btn btn-danger" role="button" disabled>無法刪除</a>
+                }
+
+            </td>
+        </tr>
+            }
+
+        </table>
+    </div>
+</div>
