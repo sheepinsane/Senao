@@ -10,7 +10,7 @@
     <ProjectView>ShowAllFiles</ProjectView>
     <NameOfLastUsedPublishProfile>Senao_EE</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DbContextTypeFullName>Senao_EE.Senao_EEEntities</WebStackScaffolding_DbContextTypeFullName>
-    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
