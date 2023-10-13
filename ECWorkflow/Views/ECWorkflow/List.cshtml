@@ -110,7 +110,12 @@
                         @Html.DisplayFor(modelItem => item.chModelNo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.chModelName)
+                        @*@Html.DisplayFor(modelItem => item.chModelName)*@
+                        @Html.ActionLink(item.chModelName, "Update", "ECWorkflow", new { chTPNo = item.chTPNo,
+                       chModelNo = item.chModelNo,
+                       chModelName = item.chModelName,
+                       chTPName = item.chTPName
+                   }, null)
                     </td>
                     <td>
                         @Html.ActionLink(item.chTPNo, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)

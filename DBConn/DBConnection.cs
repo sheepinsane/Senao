@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,25 @@ namespace DBConn
     public partial class DBConnection
     {
 
-        private string connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        private string connectionStringDebug = ConfigurationManager.AppSettings["ConnectionStringDebug"];
+        private string connectionStringRelease = ConfigurationManager.AppSettings["ConnectionStringRelease"];
+        private string connectionString = ConfigurationManager.AppSettings["ConnectionStringRelease"];
         private SqlConnection connection;
 
         public DBConnection()
         {
-            this.connection = new SqlConnection(connectionString);
+            if (Debugger.IsAttached)
+            {
+                this.connection = new SqlConnection(connectionStringDebug);
+                connectionString = ConfigurationManager.AppSettings["ConnectionStringDebug"];
+            }
+            else
+            {
+                this.connection = new SqlConnection(connectionStringRelease);
+                connectionString = ConfigurationManager.AppSettings["ConnectionStringRelease"];
+            }
         }
+
 
         public void OpenConnection()
         {

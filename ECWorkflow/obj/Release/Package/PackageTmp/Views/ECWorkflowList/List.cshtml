@@ -16,6 +16,12 @@
         white-space: normal; /* 允许文本换行 */
         word-wrap: break-word; /* 允许单词换行 */
     }
+
+    .table-fixed-100px {
+        width: 100px; /* 固定列宽度为100像素 */
+        white-space: normal; /* 允许文本换行 */
+        word-wrap: break-word; /* 允许单词换行 */
+    }
 </style>
 <script>
     $(document).ready(function () {
@@ -25,7 +31,15 @@
         });
     });
 
+    function confirmDelete(deleteUrl) {
+        var confirmation = confirm("確定是否要刪除申請？");
+
+        if (confirmation) {
+            window.location.href = deleteUrl;
+        }
+    }
 </script>
+
 <h2>產測料號-查詢</h2>
 <div class="table-margin-top">
 
@@ -37,12 +51,10 @@
             <div class="col-md-5">
                 <label for="selectElement">申請狀態：</label>
                 <select name="intStatus" class="form-control" aria-label="Default select example">
-                    <option value="-1" selected>所有</option>
-                    <option value="1">申請版本料號</option>
-                    <option value="2">版本料號申請完成</option>
-                    <option value="3">發行軟體管制表</option>
-                    <option value="5">申請EC單號</option>
-                    <option value="6">EC已完成</option>
+                    @foreach (var status in Enum.GetValues(typeof(ECWorkflow.Models.ECWorkflowList.StatusEnum)))
+                    {
+                        <option value="@((int)status)">@status.ToString()</option>
+                    }
                 </select>
             </div>
             <div class="col-md-5">
@@ -57,7 +69,7 @@
         <div class="row table-margin-top">
             <div class="col-md-12">
                 <label for="queryText">查詢：</label>
-                <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
+                <input type="text" name="queryText" id="queryText" class="form-control" placeholder="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱|EC單號" aria-label="請輸入 產品料號|產品名稱|產測程式-流水號|產測程式名稱" aria-describedby="basic-addon2">
             </div>
         </div>
         <div class="row table-margin-top">
@@ -77,8 +89,11 @@
     <div class="row">
         <table class="table">
             <tr>
-                <th>
+                <th class="table-fixed-100px">
                     @Html.DisplayNameFor(model => model.chApplyDate)
+                </th>
+                <th class="table-fixed-100px">
+                    @Html.DisplayNameFor(model => model.chModelNo)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.chTPAll)
@@ -96,9 +111,6 @@
                     @Html.DisplayNameFor(model => model.chECNo)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.chECCreateDate)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.chECFinishDate)
                 </th>
                 <th>
@@ -109,8 +121,11 @@
             @foreach (var item in Model)
             {
         <tr>
-            <td>
+            <td class="table-fixed-100px">
                 @item.chApplyDate.ToString("yyyy-MM-dd")
+            </td>
+            <td class="table-fixed-100px">
+                @Html.DisplayFor(modelItem => item.chModelNo)
             </td>
             <td>
                 @Html.ActionLink(item.chTPAll, "Edit", "ECWorkflowList", new { chTPNo = item.chTPNo }, null)
@@ -124,23 +139,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.chStatus)
             </td>
-            <td>
+            <td class="table-fixed-100px">
                 @Html.DisplayFor(modelItem => item.chECNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.chECCreateDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.chECFinishDate)
             </td>
             <td>
-                @if (item.intStatus == 1)
+                @if (item.intStatus == (int)ECWorkflow.Models.ECWorkflowList.StatusEnum.申請版本料號)
                 {
-                    <a href="@Url.Action("Delete", "ECWorkflow", new { chTPNo = item.chTPNo })" class="btn btn-danger" role="button">刪除</a>
+                    <a href="#" class="btn btn-danger btn-sm" role="button" onclick="confirmDelete('@Url.Action("Delete", "ECWorkflowList", new { chTPAll = item.chTPAll })')" data-toggle="tooltip" data-original-title="取消申請">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                    </a>
                 }
                 else
-                { 
-                    <a class="btn btn-danger" role="button" disabled>無法刪除</a>
+                {
+                  
                 }
 
             </td>

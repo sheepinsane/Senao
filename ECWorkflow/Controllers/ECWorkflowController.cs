@@ -32,6 +32,24 @@ namespace ECWorkflow.Controllers
                 return View(SetViewModel(Model));
             }
         }
+
+        public ActionResult Update(Models.ECWorkflow Model)
+        {
+            return View(Model);
+        }
+
+        public ActionResult UpdateName(Models.ECWorkflow Model)
+        {
+            DBConnection sqlConnection = new DBConnection();
+            string SQL = $"Update ECWorkflow Set chModelName =  '{Model.chModelName}' Where (chModelNo) in ('{Model.chModelNo}')";
+            sqlConnection.Update(SQL);
+
+            sqlConnection = new DBConnection();
+            string query = "SELECT TOP (1000) * FROM ECWorkflow";
+            var result = sqlConnection.ExecuteQuery<Models.ECWorkflow>(query);
+            return View("List",result);
+        }
+
         public ActionResult Save()
         {
             DBConnection sqlConnection = new DBConnection();

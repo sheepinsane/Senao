@@ -51,7 +51,7 @@ namespace ECWorkflow.Controllers
                     var modelFirst = result.FirstOrDefault();
                     lastModel = new Models.vECWorkflowList();
                     lastModel.chTPNo2 = "199";//+1預設變成200
-                    lastModel.intStatus = 1;
+                    lastModel.intStatus = (int)Models.ECWorkflowList.StatusEnum.申請EC單號;
                     lastModel.chModelName = modelFirst.chModelName;
                     lastModel.chModelNo = modelFirst.chModelNo;
                     lastModel.chTPBasic = modelFirst.chTPName;
@@ -78,7 +78,7 @@ namespace ECWorkflow.Controllers
             DBConnection sqlConnection = new DBConnection();
             //新增資料到系統中
             Models.ECWorkflowList detail = model;
-            detail.intStatus = 1;
+            detail.intStatus = (int)Models.ECWorkflowList.StatusEnum.申請EC單號;
             sqlConnection.InsertEntity(detail, "ECWorkflowList");
 
             string query = $"SELECT TOP 1 * FROM[dbo].[v_ECWorkflowList] Where chTPNo = '{model.chTPNo}' Order by chTPNo2 Desc";
@@ -95,9 +95,14 @@ namespace ECWorkflow.Controllers
 
         }
 
-        public ActionResult Delete(Models.ECWorkflowList model)
+        public ActionResult Delete(Models.vECWorkflowList model)
         {
-            return View();
+            DBConnection sqlConnection = new DBConnection();
+            string SQL = $"Update ECWorkflowList Set intStatus =  {(int)Models.ECWorkflowList.StatusEnum.取消申請} Where (chTPNo + chTPNo2) = ('{model.chTPAll}')";
+            sqlConnection.Update(SQL);
+
+            var list = GetvECWorkflowList(model);
+            return View("List",list);
         }
 
         public ActionResult StatusChangeList(Models.vECWorkflowList model)
@@ -126,8 +131,9 @@ namespace ECWorkflow.Controllers
                 $"Where ([chTPAll] like '%{model.queryText}%' " +
                 $"Or [chTPName] like '%{model.queryText}%' " +
                 $"Or [chECNo] like '%{model.queryText}%' " +
-                $"Or [chCreater] like '%{model.queryText}%') ";
-            if (model.intStatus != -1)
+                $"Or [chCreater] like '%{model.queryText}%' " +
+                $"Or [chModelNo] like '%{model.queryText}%') ";
+            if (model.intStatus != (int)Models.ECWorkflowList.StatusEnum.所有)
                 query += $"And [intStatus] = '{model.intStatus}'";
             if (model.chApplyFirst != string.Empty && model.chApplyFirst != null)
                 query += $"And [chApplyDate] >= '{model.chApplyFirst}'";

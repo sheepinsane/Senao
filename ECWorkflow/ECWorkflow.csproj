@@ -199,6 +199,7 @@
     <Content Include="Views\ECWorkflowList\List.cshtml" />
     <Content Include="Views\ECWorkflowList\Edit.cshtml" />
     <Content Include="Views\ECWorkflowList\StatusChangeList.cshtml" />
+    <Content Include="Views\ECWorkflow\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

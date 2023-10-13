@@ -37,7 +37,18 @@ namespace ECWorkflow.Models
 
         [DisplayName("EC完成日期")]
         public string chECFinishDate { get; set; }
-    
+
+
+        public enum StatusEnum
+        {
+            所有 = 0,
+            申請版本料號 = 1,
+            版本料號申請完成 = 2,
+            發行軟體管制表 = 3,
+            取消申請 = 4,
+            申請EC單號 = 5,
+            EC已完成 = 6
+        }
 
     }
 
@@ -47,21 +58,10 @@ namespace ECWorkflow.Models
     {
         [DisplayName("狀態")]
         public string chStatus { 
-            get { 
-                
-                if (intStatus == 1)
-                    return "申請版本料號";
-                if (intStatus == 2)
-                    return "版本料號申請完成";
-                if (intStatus == 3)
-                    return "發行軟體管制表";
-                if (intStatus == 4)
-                    return "";
-                if (intStatus == 5)
-                    return "申請EC單號";
-                if (intStatus == 6)
-                    return "EC已完成";
-                return string.Empty;
+            get {
+
+                string statusText = Enum.GetName(typeof(StatusEnum), intStatus);
+                return statusText;
             } 
             set { }
         }
